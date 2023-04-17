@@ -1,5 +1,6 @@
 name: 'GAPSI Size Checker'
 description: 'Check PR total lines changed'
+iconName: code
 inputs:
   max_lines_changed:
     description: 'Maximum number of lines changed allowed'
