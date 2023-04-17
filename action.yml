@@ -1,4 +1,4 @@
-name: 'PR Size Checker'
+name: 'GAPSI Size Checker'
 description: 'Check PR total lines changed'
 inputs:
   max_lines_changed:
