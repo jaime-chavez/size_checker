@@ -1,7 +1,7 @@
 name: 'PR Size Checker'
 description: 'Check PR total lines changed'
 inputs:
-  max_lines_changed:  # id of input
+  max_lines_changed:
     description: 'Maximum number of lines changed allowed'
     required: true
     default: '200'
