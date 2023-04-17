@@ -1,0 +1,40 @@
+name: 'PR Size Checker'
+description: 'Check PR total lines changed'
+inputs:
+  max_lines_changed:  # id of input
+    description: 'Maximum number of lines changed allowed'
+    required: true
+    default: '200'
+  target_branch:
+    description: The branch to compare against
+    required: true
+    default: main
+outputs:
+  total_lines_changed:
+    description: 'Total lines changed in this PR'
+    value: ${{ steps.get_total_lines_changed.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - id: get_total_lines_changed
+      run: |
+        size=$(git diff --stat origin/${{ inputs.target_branch }} \
+        | grep -v .lock \
+        | awk -F"|" '{ print $2 }' \
+        | awk '{ print $1 }' \
+        | sed '/^$/d' \
+        | paste -sd+ - \
+        | bc)
+        echo "size=${size}" >> $GITHUB_ENV
+        echo ""
+        echo "Total lines changed (note: *.lock files are excluded from this count): "
+        echo $size
+      shell: bash
+    - run: |
+        if [[ $size -gt ${{ inputs.max_lines_changed }} ]]
+        then
+          echo "Warning - total lines changed is greater than" ${{ inputs.max_lines_changed }}.
+          echo "Please consider breaking this PR down."
+          exit 1
+        fi
+      shell: bash
