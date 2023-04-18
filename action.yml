@@ -1,19 +1,14 @@
 name: 'GAPSI Size Checker'
 description: 'Check PR total lines changed'
-iconName: code
 inputs:
   max_lines_changed:
-    description: 'Maximum number of lines changed allowed'
+    description: 'Numero maximo de lineas permitidas'
     required: true
     default: '200'
   target_branch:
-    description: The branch to compare against
+    description: La rama a la que se hace el PR
     required: true
     default: main
-outputs:
-  total_lines_changed:
-    description: 'Total lines changed in this PR'
-    value: ${{ steps.get_total_lines_changed.outputs.random-id }}
 runs:
   using: "composite"
   steps:
@@ -28,7 +23,7 @@ runs:
         | bc)
         echo "size=${size}" >> $GITHUB_ENV
         echo ""
-        echo "Total lines changed (note: *.lock files are excluded from this count): "
+        echo "Total de lineas modificadas: "
         echo $size
       shell: bash
     - run: |
