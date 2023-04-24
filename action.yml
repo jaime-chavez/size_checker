@@ -1,5 +1,8 @@
 name: 'GAPSI Size Checker'
-description: 'Check PR total lines changed'
+description: 'Comprobar total de lineas cambiadas'
+branding:
+  icon: 'code'
+  color: 'red'
 inputs:
   max_lines_changed:
     description: 'Numero maximo de lineas permitidas'
@@ -29,8 +32,7 @@ runs:
     - run: |
         if [[ $size -gt ${{ inputs.max_lines_changed }} ]]
         then
-          echo "Warning - total lines changed is greater than" ${{ inputs.max_lines_changed }}.
-          echo "Please consider breaking this PR down."
+          echo "Alerta - Se han modificado mas de " ${{ inputs.max_lines_changed }} lineas.
           exit 1
         fi
       shell: bash
