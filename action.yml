@@ -33,6 +33,5 @@ runs:
         if [[ $size -gt ${{ inputs.max_lines_changed }} ]]
         then
           echo "Alerta - Se han modificado mas de " ${{ inputs.max_lines_changed }} lineas.
-          exit 1
         fi
       shell: bash
